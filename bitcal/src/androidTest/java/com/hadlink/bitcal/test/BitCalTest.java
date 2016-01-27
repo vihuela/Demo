@@ -22,23 +22,46 @@ public class BitCalTest extends InstrumentationTestCase {
         assertEquals(res4, 3);
     }
 
+    /**
+     * 增加、清除标志位
+     */
     public void testApply1() {
-        final int x = 3;
-        final int y = 4;
-        final int res1 = x ^ y;
-
-        assertEquals(res1, 4);
-    }
-
-    public void testApply2() {
         final int x = 0x00000010;
         final int y = 0X00000001;
         final int res1 = x | y;
-        final int res2 = res1 & ~x;//res1中清除x
+        final int res2 = x & x;
+        final int res3 = res1 & ~y;//res1中清除y
+        final int res4 = res3 | y;//res3附加y
+
+        final boolean isExistX1 = (res1 & x) > 0;//包含x
+        final boolean isExistX2 = (res1 & ~y) == x;//包含x
 
 
         assertEquals(res1, 17);
-        assertEquals(res2, 1);
+        assertEquals(res2, 16);
+        assertEquals(res3, 16);
+        assertEquals(res4, 17);
+        assertEquals(isExistX1, isExistX2);
+    }
+
+    /**
+     * 奇偶数
+     */
+    public void testCheckEven() {
+        assertEquals(checkEven(2), true);
+    }
+
+    private boolean checkEven(int num) {
+        return (num & 1) == 0;
+    }
+
+    /**
+     * 取某个int数的某位
+     */
+    public void testGetIntForPosition() {
+        final int x = 256;
+        final int res = (x >> 2) & 1;
+        assertEquals(res, 5);
     }
 
 }

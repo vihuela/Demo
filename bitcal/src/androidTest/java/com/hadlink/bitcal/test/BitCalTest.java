@@ -22,12 +22,23 @@ public class BitCalTest extends InstrumentationTestCase {
         assertEquals(res4, 3);
     }
 
-    public void testApply() {
+    public void testApply1() {
         final int x = 3;
         final int y = 4;
         final int res1 = x ^ y;
 
         assertEquals(res1, 4);
+    }
+
+    public void testApply2() {
+        final int x = 0x00000010;
+        final int y = 0X00000001;
+        final int res1 = x | y;
+        final int res2 = res1 & ~x;//res1中清除x
+
+
+        assertEquals(res1, 17);
+        assertEquals(res2, 1);
     }
 
 }

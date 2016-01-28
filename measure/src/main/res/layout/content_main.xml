@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.hadlink.measure.widget.CusFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.hadlink.measure.MainActivity"
+    tools:context="com.hadlink.touch.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
-</RelativeLayout>
+    <com.hadlink.measure.widget.CusLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+
+        >
+
+        <com.hadlink.measure.widget.CusButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CUSBTN"
+            />
+
+        <com.hadlink.measure.widget.CusTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="CUSTEXTVIEW"
+            />
+
+
+    </com.hadlink.measure.widget.CusLinearLayout>
+</com.hadlink.measure.widget.CusFrameLayout>

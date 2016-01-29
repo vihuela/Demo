@@ -21,8 +21,8 @@ public class RadarView extends View {
     protected Paint arcPaint;
     protected Paint linePaint;
     protected int screenWidth;
-    private int radius;
-    private int startAngle;
+    private int sweepAngle = 45;
+    private int startAngle = 0;//3'clock
     private int contentWidth, contentHeight;
 
     public RadarView(Context context, AttributeSet attrs) {
@@ -30,25 +30,21 @@ public class RadarView extends View {
         init(context);
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
-        this.startAngle = radius + 45;
+    public void setSweepAngle(int sweepAngle) {
+        this.sweepAngle = sweepAngle;
         postInvalidate();
     }
 
     public void scan() {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(this, "radius", MAX);
-        objectAnimator.setDuration(1500);
-        objectAnimator.setRepeatMode(ObjectAnimator.RESTART);
-        objectAnimator.setRepeatCount(ObjectAnimator.INFINITE);
-        objectAnimator.start();
-/*
-        ObjectAnimator objectAnimator1 = ObjectAnimator.ofInt(this, "startAngle", MAX);
-        objectAnimator1.setDuration(3000);
-        objectAnimator1.setInterpolator(new DecelerateInterpolator());
-        objectAnimator1.setRepeatMode(ObjectAnimator.RESTART);
-        objectAnimator1.setRepeatCount(ObjectAnimator.INFINITE);
-        objectAnimator1.start();*/
+
+        ObjectAnimator sweepAnim = ObjectAnimator.ofInt(this, "sweepAngle", MAX);
+        sweepAnim.setDuration(5000);
+        sweepAnim.setRepeatMode(ObjectAnimator.RESTART);
+        sweepAnim.setRepeatCount(ObjectAnimator.INFINITE);
+
+        sweepAnim.start();
+
+
     }
 
     private void init(Context c) {
@@ -86,19 +82,26 @@ public class RadarView extends View {
 
             rectF = new RectF(paddingLeft, paddingTop, contentWidth + paddingLeft, contentHeight + paddingBottom);
 
-            int[] colors = {adjustAlpha(Color.RED, 0.9f), adjustAlpha(Color.RED, 0.5f), adjustAlpha(Color.RED, 0.3f)};
+            //圆心像四周渐变
+            int[] colors = {adjustAlpha(Color.RED, 1.f), adjustAlpha(Color.RED, 0.66f), adjustAlpha(Color.RED, 0.33f)};
             float[] stops = {0.2f, 0.3f, 0.5f};
             arcPaint.setShader(new RadialGradient(contentWidth / 2, contentHeight / 2, contentHeight / 2, colors, null, RadialGradient.TileMode.MIRROR));
+            /*arcPaint.setShader(new SweepGradient(contentWidth / 2, contentHeight / 2,colors,null));*/
 
         }
+        //扇形
+        canvas.save();
+        canvas.rotate(sweepAngle, contentWidth / 2, contentHeight / 2);
+        canvas.drawArc(rectF, startAngle, sweepAngle, true, arcPaint);
+        canvas.restore();
+
+
         //内外圈圆
         canvas.drawCircle(contentWidth / 2, contentHeight / 2, contentHeight / 2, linePaint);
         canvas.drawCircle(contentWidth / 2, contentHeight / 2, contentHeight / 2 / 2, linePaint);
         //横竖线
         canvas.drawLine(0, contentHeight / 2, contentWidth, contentHeight / 2, linePaint);
         canvas.drawLine(contentWidth / 2, 0, contentWidth / 2, contentHeight, linePaint);
-        //扇形
-        canvas.drawArc(rectF, startAngle, 45, true, arcPaint);
     }
 
     public int adjustAlpha(int color, float factor) {

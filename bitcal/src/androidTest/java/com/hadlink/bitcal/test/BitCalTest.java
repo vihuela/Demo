@@ -33,7 +33,8 @@ public class BitCalTest extends InstrumentationTestCase {
         final int res3 = res1 & ~y;//res1中清除y
         final int res4 = res3 | y;//res3附加y
 
-        final boolean isExistX1 = (res1 & x) > 0;//包含x
+        final boolean isExistX1 = (res1 & x) != 0;//包含x
+
         final boolean isExistX2 = (res1 & ~y) == x;//包含x
 
 

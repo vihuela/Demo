@@ -16,6 +16,7 @@
 
     <com.hadlink.measure.widget.RadarView
         android:layout_width="400dp"
+        android:id="@+id/rv"
         android:layout_gravity="center"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray"

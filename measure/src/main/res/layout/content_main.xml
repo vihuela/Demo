@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hadlink.measure.widget.CusFrameLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,29 +14,14 @@
     tools:context="com.hadlink.touch.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.hadlink.measure.widget.CusLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-
-
+    <com.hadlink.measure.widget.RadarView
+        android:layout_width="400dp"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
         >
 
-        <com.hadlink.measure.widget.CusButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CUSBTN"
-            />
 
-        <com.hadlink.measure.widget.CusTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="CUSTEXTVIEW"
-            />
+    </com.hadlink.measure.widget.RadarView>
 
-
-    </com.hadlink.measure.widget.CusLinearLayout>
-</com.hadlink.measure.widget.CusFrameLayout>
+</FrameLayout>

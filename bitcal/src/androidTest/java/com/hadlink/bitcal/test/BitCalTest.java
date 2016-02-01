@@ -28,15 +28,13 @@ public class BitCalTest extends InstrumentationTestCase {
     public void testApply1() {
         final int x = 10;
         final int y = 1;
-        final int mask = 0xF;
         final int res1 = x | y;
         final int res2 = x & x;
         final int res3 = res1 & ~y;//res1中清除y
         final int res4 = res3 | y;//res3附加y
 
         final boolean isExistX1 = (res1 & x) == x;//包含x
-        final boolean isExistX2 = (res1 & x) !=0;//包含x
-        final boolean isExistX3 = (x & mask) == x;//包含x
+        final boolean isExistX2 = (res1 & x) != 0;//包含x
 
         final boolean isExistX4 = (res1 & ~y) == x;//包含x
 
@@ -46,6 +44,25 @@ public class BitCalTest extends InstrumentationTestCase {
         assertEquals(res3, 10);
         assertEquals(res4, 11);
         assertEquals(isExistX1, isExistX2);
+    }
+
+    /**
+     * 判断是否满足
+     */
+    public void testApply2() {
+        final int HEAD = 3;//11
+        final int FOOT = 1;//01
+
+        final int MASK = 0x3;//11
+        final int origin = 245;//11110101
+
+        final int input = 202;//11001010
+
+        /**
+         * 头2位是否满足
+         */
+        int i = input & MASK << 6;
+        assertEquals(i, HEAD << 6);
     }
 
     /**

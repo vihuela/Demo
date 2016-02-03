@@ -23,6 +23,7 @@ public class ClockView extends View {
     private Paint smallCirclePaint;
     private Paint arrowPaint;
     private Paint arrowCirclePaint;
+    private Paint textPaint;
     private int canvasCount;
     private int lineLength;
     private int centerX, centerY;
@@ -64,6 +65,13 @@ public class ClockView extends View {
          */
         arrowCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         arrowCirclePaint.setColor(Color.parseColor("#AFD0E2"));
+        /**
+         * 文字
+         */
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(getPx(context, 13f));
+
     }
 
     public static int getPx(Context ctx, float dp) {
@@ -130,7 +138,7 @@ public class ClockView extends View {
     }
 
     private void drawText(Canvas canvas) {
-        canvas.drawText("N", centerX - smallCircleRadius / 2, lineLength, smallCirclePaint);
+        canvas.drawText("N", centerX - smallCircleRadius / 2, lineLength, textPaint);
     }
 
 

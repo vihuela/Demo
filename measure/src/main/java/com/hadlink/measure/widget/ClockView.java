@@ -112,6 +112,10 @@ public class ClockView extends View {
         /**
          * 箭头中间圆圈
          */
+        drawArrowCircle(canvas);
+    }
+
+    private void drawArrowCircle(Canvas canvas) {
         canvas.drawCircle(centerX, centerY, smallCircleRadius * 2, arrowCirclePaint);
     }
 

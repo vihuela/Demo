@@ -2,34 +2,68 @@ package com.hadlink.measure.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
 /**
  * @author Created by lyao on 2016/2/3.
- * @description
  */
 public class ClockView extends View {
-    private int radius;//半径
-    private int contentSize;//内容区域大小
-    private Paint circlePaint;
-    private Context mContext;
-    private int canvasCount;//表盘小刻度线条绘制次数
-    private int lineLength;//表盘小刻度线条长度
+
+    private int smallCircleRadius;
+    private int smallCircleOffset;
+    private int arrowOffsetY;
+    private int arrowOffsetX;
+    private int contentSize;
+    private Paint outCircleLinePaint;
+    private Paint smallCirclePaint;
+    private Paint arrowPaint;
+    private Paint arrowCirclePaint;
+    private int canvasCount;
+    private int lineLength;
+    private int centerX, centerY;
+    private Path arrowPath;
 
     public ClockView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
-        canvasCount = 60;
+        canvasCount = 120;
         contentSize = Math.min(getResources().getDisplayMetrics().heightPixels, getResources().getDisplayMetrics().widthPixels);
-        lineLength = getPx(mContext, 10f);
-        radius = contentSize / 2 - lineLength - 10;// -  parentPadding;
+        lineLength = getPx(context, 10f);
+        smallCircleRadius = getPx(context, 10f) / 2;
+        smallCircleOffset = 7;
+        arrowOffsetY = 250;
+        arrowOffsetX = 40;
+        arrowPath = new Path();
 
-        circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeWidth(2.f);
+        /**
+         * 外圈圆小线条
+         */
+        outCircleLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        outCircleLinePaint.setStyle(Paint.Style.STROKE);
+        outCircleLinePaint.setStrokeWidth(2.f);
+        outCircleLinePaint.setColor(Color.WHITE);
+
+        /**
+         * 小圆圈
+         */
+        smallCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        smallCirclePaint.setColor(Color.WHITE);
+
+        /**
+         * 箭头
+         */
+        arrowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        arrowPaint.setColor(Color.WHITE);
+
+        /**
+         * 箭头内部圆圈
+         */
+        arrowCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        arrowCirclePaint.setColor(Color.parseColor("#AFD0E2"));
     }
 
     public static int getPx(Context ctx, float dp) {
@@ -51,16 +85,65 @@ public class ClockView extends View {
         /**
          * 中心点
          */
-        int px = contentX + getPaddingLeft();
-        int py = contentY + getPaddingTop();
+        centerX = contentX + getPaddingLeft();
+        centerY = contentY + getPaddingTop();
 
+        /**
+         * 最外圈
+         */
+
+        drawOutCircle(canvas, centerX, centerY);
+
+        /**
+         * 小圆圈
+         */
+        drawSmallCircle(canvas, centerX);
+
+        /**
+         * 文字
+         */
+        drawText(canvas);
+
+        /**
+         * 箭头
+         */
+        drawArrow(canvas);
+
+        /**
+         * 箭头中间圆圈
+         */
+        canvas.drawCircle(centerX, centerY, smallCircleRadius * 2, arrowCirclePaint);
+    }
+
+    private void drawArrow(Canvas canvas) {
+        arrowPath.moveTo(centerX, centerY - arrowOffsetY);
+        arrowPath.lineTo(centerX - arrowOffsetX, centerY);
+        arrowPath.lineTo(centerX, centerY + arrowOffsetY);
+        arrowPath.lineTo(centerX + arrowOffsetX, centerY);
+        arrowPath.lineTo(centerX, centerY - arrowOffsetY);
+        arrowPath.close();
+        canvas.drawPath(arrowPath, arrowPaint);
+    }
+
+    private void drawText(Canvas canvas) {
+        canvas.drawText("N", centerX - smallCircleRadius / 2, lineLength, smallCirclePaint);
+    }
+
+
+    private void drawSmallCircle(Canvas canvas, int centerX) {
+
+        int smallCircleY = getPaddingTop() + lineLength + smallCircleRadius + smallCircleOffset;
+        canvas.drawCircle(centerX, smallCircleY, smallCircleRadius, smallCirclePaint);
+    }
+
+    private void drawOutCircle(Canvas canvas, int centerX, int centerY) {
         canvas.save();
         for (int i = 0; i < canvasCount; i++) {
-            canvas.drawLine(px, getPaddingTop(), px, lineLength + getPaddingTop(), circlePaint);
-            canvas.rotate(360 / canvasCount, px, py);
+            int itemAlpha = (255 / canvasCount) * i;
+            outCircleLinePaint.setAlpha(Math.min(255, 255 - itemAlpha));
+            canvas.drawLine(centerX, getPaddingTop(), centerX, lineLength + getPaddingTop(), outCircleLinePaint);
+            canvas.rotate(360 / canvasCount, centerX, centerY);
         }
         canvas.restore();
-
-
     }
 }

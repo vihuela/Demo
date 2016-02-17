@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="clockView">
+        <attr name="isRotate" format="reference|boolean" />
+    </declare-styleable>
+
+
+</resources>

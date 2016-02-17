@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".ClockActivity"/>
         <activity android:name=".RadarActivity"/>
+        <activity android:name=".ViewDragHelperActivity"/>
 
 
     </application>

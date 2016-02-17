@@ -1,1 +1,1 @@
-include ':bitcal', ':touch', ':measure'
+include ':bitcal', ':touch', ':view'

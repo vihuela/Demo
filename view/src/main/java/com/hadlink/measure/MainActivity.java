@@ -23,4 +23,8 @@ public class MainActivity extends AppCompatActivity {
     public void ClockView(View view) {
         startActivity(new Intent(this, ClockActivity.class));
     }
+
+    public void ViewDragHelper(View view) {
+        startActivity(new Intent(this, ViewDragHelperActivity.class));
+    }
 }

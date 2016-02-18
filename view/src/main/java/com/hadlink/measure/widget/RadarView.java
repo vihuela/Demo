@@ -24,6 +24,7 @@ public class RadarView extends View {
     private int sweepAngle = 45;
     private int startAngle = 0;//3'clock
     private int contentWidth, contentHeight;
+    private int centerX, centerY;
 
     public RadarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,6 +71,7 @@ public class RadarView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
 
+
         if (rectF == null) {
 
             int paddingLeft = getPaddingLeft();
@@ -80,28 +82,31 @@ public class RadarView extends View {
             contentWidth = getWidth() - paddingLeft - paddingRight;
             contentHeight = getHeight() - paddingTop - paddingBottom;
 
+            centerX = contentWidth / 2 + paddingLeft;
+            centerY = contentHeight / 2 + paddingTop;
+
             rectF = new RectF(paddingLeft, paddingTop, contentWidth + paddingLeft, contentHeight + paddingBottom);
 
             //圆心像四周渐变
             int[] colors = {adjustAlpha(Color.RED, 1.f), adjustAlpha(Color.RED, 0.66f), adjustAlpha(Color.RED, 0.33f)};
             float[] stops = {0.2f, 0.3f, 0.5f};
-            arcPaint.setShader(new RadialGradient(contentWidth / 2, contentHeight / 2, contentHeight / 2, colors, null, RadialGradient.TileMode.MIRROR));
-            /*arcPaint.setShader(new SweepGradient(contentWidth / 2, contentHeight / 2,colors,null));*/
+            arcPaint.setShader(new RadialGradient(centerX, centerY, centerY, colors, null, RadialGradient.TileMode.MIRROR));
+            /*arcPaint.setShader(new SweepGradient(centerX, centerY,colors,null));*/
 
         }
         //扇形
         canvas.save();
-        canvas.rotate(sweepAngle, contentWidth / 2, contentHeight / 2);
+        canvas.rotate(sweepAngle, centerX, centerY);
         canvas.drawArc(rectF, startAngle, sweepAngle, true, arcPaint);
         canvas.restore();
 
 
         //内外圈圆
-        canvas.drawCircle(contentWidth / 2, contentHeight / 2, contentHeight / 2, linePaint);
-        canvas.drawCircle(contentWidth / 2, contentHeight / 2, contentHeight / 2 / 2, linePaint);
+        canvas.drawCircle(centerX, centerY, contentWidth / 2, linePaint);
+        canvas.drawCircle(centerX, centerY, contentWidth / 4, linePaint);
         //横竖线
-        canvas.drawLine(0, contentHeight / 2, contentWidth, contentHeight / 2, linePaint);
-        canvas.drawLine(contentWidth / 2, 0, contentWidth / 2, contentHeight, linePaint);
+        canvas.drawLine(getPaddingLeft(), centerY, contentWidth + getPaddingRight(), centerY, linePaint);
+        canvas.drawLine(centerX, getPaddingTop(), centerX, contentHeight + getPaddingBottom(), linePaint);
     }
 
     public int adjustAlpha(int color, float factor) {

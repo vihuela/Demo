@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hadlink.measure.widget.VDHLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.hadlink.touch.ViewDragHelperActivity"
     >
 
-    <com.hadlink.measure.widget.RadarView
-        android:id="@+id/rv"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
-        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,5 +16,45 @@
         android:text="ViewDragHelper"
         android:textColor="@android:color/darker_gray"/>
 
+    <com.hadlink.measure.widget.VDHLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.hadlink.touch.ViewDragHelperActivity"
+        >
 
-</com.hadlink.measure.widget.VDHLayout>
+        <com.hadlink.measure.widget.RadarView
+            android:id="@+id/rv2"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@android:color/darker_gray"
+            android:padding="10dp"
+            />
+
+        <com.hadlink.measure.widget.RadarView
+            android:id="@+id/rv1"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rv2"
+            android:background="@android:color/darker_gray"
+            android:padding="5dp"
+            />
+
+
+        <com.hadlink.measure.widget.RadarView
+            android:id="@+id/rv3"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rv2"
+            android:background="@android:color/darker_gray"
+            android:padding="15dp"
+            />
+
+
+    </com.hadlink.measure.widget.VDHLayout>
+</FrameLayout>

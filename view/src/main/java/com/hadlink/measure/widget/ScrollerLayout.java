@@ -58,9 +58,9 @@ public class ScrollerLayout extends ViewGroup {
 
                 downX = (int) event.getX();
                 downY = (int) event.getY();
+                
                 scrollBy(distanceX, 0);
 
-                System.out.println();
                 break;
             case MotionEvent.ACTION_UP:
 

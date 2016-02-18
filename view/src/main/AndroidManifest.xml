@@ -19,9 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ClockActivity"/>
-        <activity android:name=".RadarActivity"/>
-        <activity android:name=".ViewDragHelperActivity"/>
+        <activity android:name=".CommonActivity"/>
 
 
     </application>

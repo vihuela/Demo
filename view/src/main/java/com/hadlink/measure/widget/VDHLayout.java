@@ -23,6 +23,7 @@ public class VDHLayout extends RelativeLayout {
         super(context, attrs);
         mVDHCall = new VDHCallBack();
         mDragHelper = ViewDragHelper.create(this, 1.f, mVDHCall);
+        mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);//允许边界拖动
     }
 
     @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -47,7 +48,7 @@ public class VDHLayout extends RelativeLayout {
          * 记录rv1原始坐标
          */
         rv1Point.x = rv1.getLeft();
-        rv1Point.y = rv1.getRight();
+        rv1Point.y = rv1.getTop();
     }
 
     @Override public void computeScroll() {
@@ -91,6 +92,18 @@ public class VDHLayout extends RelativeLayout {
                 mDragHelper.settleCapturedViewAt(rv1Point.x, rv1Point.y);
                 postInvalidate();
             }
+        }
+
+        @Override public void onEdgeDragStarted(int edgeFlags, int pointerId) {
+            mDragHelper.captureChildView(rv2, pointerId);
+        }
+
+        @Override public int getViewHorizontalDragRange(View child) {
+            return getMeasuredWidth() - child.getMeasuredWidth();
+        }
+
+        @Override public int getViewVerticalDragRange(View child) {
+            return getMeasuredHeight() - child.getMeasuredHeight();
         }
     }
 }

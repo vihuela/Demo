@@ -2,6 +2,7 @@ package com.hadlink.measure;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,14 +18,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void RadarView(View view) {
-        startActivity(new Intent(this, RadarActivity.class));
+        go(R.layout.radar_view);
     }
 
     public void ClockView(View view) {
-        startActivity(new Intent(this, ClockActivity.class));
+        go(R.layout.clock_view);
     }
 
     public void ViewDragHelper(View view) {
-        startActivity(new Intent(this, ViewDragHelperActivity.class));
+        go(R.layout.vdh_view);
+    }
+
+    public void Scroller(View view) {
+        go(R.layout.scroller_view);
+    }
+
+    public void go(@LayoutRes int res) {
+        Intent intent = new Intent(this, CommonActivity.class);
+        intent.putExtra("id", res);
+        startActivity(intent);
     }
 }

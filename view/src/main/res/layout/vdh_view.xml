@@ -33,6 +33,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="@android:color/darker_gray"
+            android:onClick="rv2"
             android:padding="10dp"
             />
 
@@ -42,6 +43,7 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/rv2"
             android:background="@android:color/darker_gray"
+            android:onClick="rv1"
             android:padding="5dp"
             />
 
@@ -52,6 +54,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/rv2"
             android:background="@android:color/darker_gray"
+            android:onClick="rv3"
             android:padding="15dp"
             />
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 /**
  * @author Created by lyao on 2016/2/18.
  * @description
+ * http://blog.csdn.net/guolin_blog/article/details/48719871
  */
 public class ScrollerLayout extends ViewGroup {
 
@@ -58,7 +59,7 @@ public class ScrollerLayout extends ViewGroup {
 
                 downX = (int) event.getX();
                 downY = (int) event.getY();
-                
+
                 scrollBy(distanceX, 0);
 
                 break;

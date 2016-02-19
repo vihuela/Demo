@@ -117,7 +117,7 @@ public class ScrollerLayout extends ViewGroup {
     private void scroll() {
         int targetIndex = (getScrollX() + mTargetOffset) / itemMeasuredWidth;
         int dx = targetIndex * itemMeasuredWidth - getScrollX();
-        mScroller.startScroll(getScrollX(), 0, dx, 0,5000);
+        mScroller.startScroll(getScrollX(), 0, dx, 0);
         postInvalidate();
     }
 

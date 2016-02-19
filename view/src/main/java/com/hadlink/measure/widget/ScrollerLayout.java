@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 
 /**
  * @author Created by lyao on 2016/2/18.
@@ -14,16 +15,7 @@ import android.view.ViewGroup;
  */
 public class ScrollerLayout extends ViewGroup {
 
-    /**
-     * 左右边界
-     */
-    private int mLeftBound, mRightBound;
-
-    /**
-     * 可移动的左右边界
-     */
-    private int mLeftMoveBound, mRightMoveBound;
-
+    private final Scroller mScroller;
     /**
      * 原始左右边界
      */
@@ -38,12 +30,20 @@ public class ScrollerLayout extends ViewGroup {
      * 最小移动像素
      */
     private int mTouchSlop;
+
     private int downX, downInterceptX;
+    private int itemMeasuredWidth;
+
+    /**
+     * 每个item的边界
+     */
+    private int[] boundArr;
 
 
     public ScrollerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+        mScroller = new Scroller(context);
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -55,22 +55,20 @@ public class ScrollerLayout extends ViewGroup {
 
     @Override protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if (changed) {
+            boundArr = new int[getChildCount()];
             for (int i = 0; i < getChildCount(); i++) {
                 View item = getChildAt(i);
                 item.layout(item.getMeasuredWidth() * i, getPaddingTop(), item.getMeasuredWidth() * i + item.getMeasuredWidth(), item.getMeasuredHeight());
+                boundArr[i] = item.getLeft();
             }
-            int itemMeasuredWidth = getChildAt(0).getMeasuredWidth();
-            mLeftBound = getChildAt(0).getLeft();
-            mRightBound = getChildAt(getChildCount() - 1).getRight();
+            itemMeasuredWidth = getChildAt(0).getMeasuredWidth();
+
+            mLeftRestoreBound = getChildAt(0).getLeft();
+            mRightRestoreBound = getChildAt(getChildCount() - 1).getRight() - itemMeasuredWidth;
 
 
-            mLeftRestoreBound = 0;
-            mRightRestoreBound = mRightBound - itemMeasuredWidth;
+            mTargetOffset = itemMeasuredWidth/2;
 
-            mTargetOffset = itemMeasuredWidth / 2;
-
-            mLeftMoveBound = mLeftRestoreBound - mTargetOffset;
-            mRightMoveBound = mRightRestoreBound + mTargetOffset;
         }
     }
 
@@ -91,6 +89,7 @@ public class ScrollerLayout extends ViewGroup {
     }
 
     @Override public boolean onTouchEvent(MotionEvent event) {
+        boolean direct;
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) event.getRawX();
@@ -108,13 +107,26 @@ public class ScrollerLayout extends ViewGroup {
                 break;
             case MotionEvent.ACTION_UP:
 
-                if (getScrollX() <= mLeftRestoreBound) {
-                    scrollTo(0, 0);
-                } else if (getScrollX() >= mRightRestoreBound) {
-                    scrollTo(mRightRestoreBound, 0);
-                }
+                scroll();
+
                 break;
         }
         return super.onTouchEvent(event);
     }
+
+    private void scroll() {
+        int targetIndex = (getScrollX() + mTargetOffset) / itemMeasuredWidth;
+        int dx = targetIndex * itemMeasuredWidth - getScrollX();
+        mScroller.startScroll(getScrollX(), 0, dx, 0,5000);
+        postInvalidate();
+    }
+
+    @Override
+    public void computeScroll() {
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            postInvalidate();
+        }
+    }
+
 }

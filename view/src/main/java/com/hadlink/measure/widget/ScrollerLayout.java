@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.Scroller;
  */
 public class ScrollerLayout extends ViewGroup {
 
+    private final static int TIME = 1000;
     private final Scroller mScroller;
+    private final VelocityTracker mTracker;
     /**
      * 原始左右边界
      */
@@ -44,6 +47,7 @@ public class ScrollerLayout extends ViewGroup {
         super(context, attrs);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
         mScroller = new Scroller(context);
+        mTracker = VelocityTracker.obtain();
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -77,7 +81,7 @@ public class ScrollerLayout extends ViewGroup {
             case MotionEvent.ACTION_DOWN:
                 downInterceptX = (int) ev.getRawX();
                 downX = downInterceptX;//first down handle by childView
-
+                //// TODO: 2016/2/19 添加scroller完成判断
                 break;
             case MotionEvent.ACTION_MOVE:
                 int distanceX = Math.abs((int) ev.getRawX() - downInterceptX);
@@ -89,6 +93,7 @@ public class ScrollerLayout extends ViewGroup {
     }
 
     @Override public boolean onTouchEvent(MotionEvent event) {
+        mTracker.addMovement(event);
         boolean direct;
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
@@ -115,9 +120,13 @@ public class ScrollerLayout extends ViewGroup {
     }
 
     private void scroll() {
+
+        mTracker.computeCurrentVelocity(TIME);
+        float xVelocity = mTracker.getXVelocity();
+
         int targetIndex = (getScrollX() + mTargetOffset) / itemMeasuredWidth;
         int dx = targetIndex * itemMeasuredWidth - getScrollX();
-        mScroller.startScroll(getScrollX(), 0, dx, 0);
+        mScroller.startScroll(getScrollX(), 0, dx, 0,TIME);
         postInvalidate();
     }
 

@@ -1,6 +1,8 @@
 package com.hadlink.measure.widget;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.view.View;
 public class RadarView extends View {
 
     public final static int MAX = 360;
+    public final static float MAX_Alpha = 1.f;
     protected RectF rectF;
     protected Paint arcPaint;
     protected Paint linePaint;
@@ -38,14 +41,39 @@ public class RadarView extends View {
 
     public void scan() {
 
+        AnimatorSet animatorSet = new AnimatorSet();
+
         ObjectAnimator sweepAnim = ObjectAnimator.ofInt(this, "sweepAngle", MAX);
         sweepAnim.setDuration(5000);
         sweepAnim.setRepeatMode(ObjectAnimator.RESTART);
         sweepAnim.setRepeatCount(ObjectAnimator.INFINITE);
 
-        sweepAnim.start();
+        ObjectAnimator alphaA = ObjectAnimator.ofFloat(this, "Alpha", 0f, 1f);
+        alphaA.setDuration(5000);
+        alphaA.setRepeatMode(ObjectAnimator.RESTART);
+        alphaA.setRepeatCount(ObjectAnimator.INFINITE);
+
+        ValueAnimator alphaAnim = new ValueAnimator();
+        alphaAnim.setFloatValues(1f);
+        alphaAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override public void onAnimationUpdate(ValueAnimator animation) {
+                float animatedValue = (float) animation.getAnimatedValue();
+                setAlpha(animatedValue);
+            }
+        });
+        alphaAnim.setDuration(5000);
+        alphaAnim.setRepeatMode(ObjectAnimator.RESTART);
+        alphaAnim.setRepeatCount(ObjectAnimator.INFINITE);
+
+        animatorSet
+                .play(sweepAnim).with(alphaA);
+        animatorSet.start();
 
 
+    }
+
+    @Override public void setAlpha(float alpha) {
+        super.setAlpha(Math.min(1f, alpha + 0.5f));
     }
 
     private void init(Context c) {

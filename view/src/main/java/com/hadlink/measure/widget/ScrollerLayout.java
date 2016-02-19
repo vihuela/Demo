@@ -1,15 +1,16 @@
 package com.hadlink.measure.widget;
 
 import android.content.Context;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 /**
  * @author Created by lyao on 2016/2/18.
- * @description
- * http://blog.csdn.net/guolin_blog/article/details/48719871
+ * @description http://blog.csdn.net/guolin_blog/article/details/48719871
  */
 public class ScrollerLayout extends ViewGroup {
 
@@ -18,9 +19,16 @@ public class ScrollerLayout extends ViewGroup {
      * 左右边界
      */
     private int mLeftBound, mRightBound;
+    /**
+     * 最小移动像素
+     */
+    private int mTouchSlop;
+    private int downRowX;
+
 
     public ScrollerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
     }
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -42,7 +50,17 @@ public class ScrollerLayout extends ViewGroup {
     }
 
     @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return true;
+        switch (ev.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                downRowX = (int) ev.getRawX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int distanceX = Math.abs((int) ev.getRawX() - downRowX);
+                downRowX = (int) ev.getRawX();
+                boolean r = distanceX > mTouchSlop;
+                return r;
+        }
+        return false;
     }
 
     @Override public boolean onTouchEvent(MotionEvent event) {
@@ -50,17 +68,14 @@ public class ScrollerLayout extends ViewGroup {
 
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                downX = (int) event.getX();
-                downY = (int) event.getY();
+                downX = (int) event.getRawX();
                 break;
             case MotionEvent.ACTION_MOVE:
-                int distanceX = (int) event.getX() - downX;
-                int distanceY = (int) event.getY() - downY;
+                int distanceX = (int) event.getRawX() - downX;
 
-                downX = (int) event.getX();
-                downY = (int) event.getY();
+                downX = (int) event.getRawX();
 
-                scrollBy(distanceX, 0);
+                scrollBy(-distanceX, 0);
 
                 break;
             case MotionEvent.ACTION_UP:

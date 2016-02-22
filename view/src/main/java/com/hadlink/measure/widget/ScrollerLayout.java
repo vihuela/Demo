@@ -71,7 +71,7 @@ public class ScrollerLayout extends ViewGroup {
             mRightRestoreBound = getChildAt(getChildCount() - 1).getRight() - itemMeasuredWidth;
 
 
-            mTargetOffset = itemMeasuredWidth/2;
+            mTargetOffset = /*itemMeasuredWidth/2*/0;
 
         }
     }
@@ -79,9 +79,11 @@ public class ScrollerLayout extends ViewGroup {
     @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
                 downInterceptX = (int) ev.getRawX();
                 downX = downInterceptX;//first down handle by childView
-                //// TODO: 2016/2/19 添加scroller完成判断
                 break;
             case MotionEvent.ACTION_MOVE:
                 int distanceX = Math.abs((int) ev.getRawX() - downInterceptX);
@@ -126,7 +128,7 @@ public class ScrollerLayout extends ViewGroup {
 
         int targetIndex = (getScrollX() + mTargetOffset) / itemMeasuredWidth;
         int dx = targetIndex * itemMeasuredWidth - getScrollX();
-        mScroller.startScroll(getScrollX(), 0, dx, 0,TIME);
+        mScroller.startScroll(getScrollX(), 0, dx, 0, TIME);
         postInvalidate();
     }
 

@@ -82,7 +82,7 @@ public class ViewInjectUtils {
                         int[] widgetIds = (int[]) aMethod.invoke(annotation);
 
                         /**
-                         * 包裹activity
+                         * View.OnClickListener.class的实例
                          */
                         DynamicHandler dynamicHandler = new DynamicHandler(activity);
                         dynamicHandler.addMethod(methodName, m);
@@ -93,10 +93,12 @@ public class ViewInjectUtils {
                         for (int id : widgetIds) {
                             /**
                              * 执行tv.setOnClickListener(this);
+                             * 关键在this，需要是接口的匿名内部实现类。
                              */
                             View view = activity.findViewById(id);
                             Method listenerSetterMethod = view.getClass().getMethod(listenerSetter, listenerType);
                             listenerSetterMethod.invoke(view, listener);
+
                         }
 
                     } catch (Exception e) {

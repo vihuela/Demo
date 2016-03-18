@@ -25,12 +25,24 @@ public class DynamicHandler implements InvocationHandler {
     }
 
     public void setHandler(Object handler) {
-        this.handlerRef = new WeakReference<Object>(handler);
+        this.handlerRef = new WeakReference<>(handler);
     }
 
+    /**
+     * view.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+
+    }
+    });
+     */
+    /**
+     * 这里拦截的是
+     * 接口实现类的方法
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
+        //proxy就是本身，做分析用，因无法拦截getClass()
         Object handler = handlerRef.get();
         if (handler != null) {
             String methodName = method.getName();

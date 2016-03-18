@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.hadlink.annotation.anno.ContentView;
 import com.hadlink.annotation.anno.OnClick;
+import com.hadlink.annotation.anno.OnLongClick;
 import com.hadlink.annotation.anno.ViewInject;
 
 @ContentView(R.layout.activity_main)
@@ -23,23 +24,29 @@ public class MainActivity extends AppCompatActivity {
         ViewInjectUtils.injectView(this);
         ViewInjectUtils.injectOnClick(this);
 
-        showToast();
-
-        /*tv.setOnClickListener(this);*/
-
-
+        showToast("init");
     }
 
     @OnClick(R.id.tv)
-    public void onClick(View v) {
+    public void click(View v) {
         switch (v.getId()) {
             case R.id.tv:
-                showToast();
+                showToast("click");
                 break;
         }
     }
 
-    private void showToast() {
-        Toast.makeText(this, "" + tv.getText().toString(), Toast.LENGTH_SHORT).show();
+    @OnLongClick(R.id.tv)
+    public boolean longClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv:
+                showToast("long click");
+                break;
+        }
+        return true;
+    }
+
+    private void showToast(String s) {
+        Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
     }
 }

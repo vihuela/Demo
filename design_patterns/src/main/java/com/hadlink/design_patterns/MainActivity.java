@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.hadlink.design_patterns.prototype.PrototypeMainAty;
 import com.hadlink.design_patterns.status.StateMainAty;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private void go(int layoutId) {
         Intent intent = new Intent(this, CommonActivity.class);
         intent.putExtra("id", layoutId);
+        startActivity(intent);
+    }
+
+    public void PrototypeMode(View view) {
+        Intent intent = new Intent(this, PrototypeMainAty.class);
         startActivity(intent);
     }
 }

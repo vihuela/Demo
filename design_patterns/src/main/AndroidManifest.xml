@@ -21,6 +21,7 @@
         <activity android:name=".CommonActivity"/>
         <activity android:name=".status.LoginActivity"/>
         <activity android:name=".status.StateMainAty"/>
+        <activity android:name=".prototype.PrototypeMainAty"/>
     </application>
 
 </manifest>

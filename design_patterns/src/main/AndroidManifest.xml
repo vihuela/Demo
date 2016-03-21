@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CommonActivity"/>
+        <activity android:name=".status.LoginActivity"/>
+        <activity android:name=".status.StateMainAty"/>
     </application>
 
 </manifest>

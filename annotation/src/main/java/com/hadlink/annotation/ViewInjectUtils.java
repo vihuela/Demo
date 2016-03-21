@@ -75,6 +75,7 @@ public class ViewInjectUtils {
                     String methodName = eventBase.methodName();//onClick
 
                     try {
+
                         /**
                          * int value()方法
                          */
@@ -91,6 +92,7 @@ public class ViewInjectUtils {
                                 dynamicHandler);
 
                         for (int id : widgetIds) {
+
                             /**
                              * 执行tv.setOnClickListener(this);
                              * 关键在this，需要是接口的匿名内部实现类。

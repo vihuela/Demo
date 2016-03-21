@@ -14,8 +14,8 @@
     tools:showIn="@layout/activity_main">
 
     <Button
-        android:onClick="prototype"
+        android:onClick="statusMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="原型模式"/>
+        android:text="状态模式"/>
 </RelativeLayout>

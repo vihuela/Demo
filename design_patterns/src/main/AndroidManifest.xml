@@ -22,6 +22,8 @@
         <activity android:name=".status.LoginActivity"/>
         <activity android:name=".status.StateMainAty"/>
         <activity android:name=".prototype.PrototypeMainAty"/>
+        <activity android:name=".visitor.VisitorMainAty"/>
+        <activity android:name=".proxy.ProxyMainAty"/>
     </application>
 
 </manifest>

@@ -25,4 +25,16 @@
         android:layout_height="wrap_content"
         android:onClick="PrototypeMode"
         android:text="原型模式"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="VisitorMode"
+        android:text="访问者模式"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="ProxyMode"
+        android:text="代理模式"/>
 </LinearLayout>

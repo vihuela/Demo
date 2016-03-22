@@ -23,7 +23,7 @@ public enum AccountMgr {
 
     public User getCurUsr() {
         try {
-            return (User) curUsr.clone();
+            return (User) curUsr.clone();//仅返回一份拷贝
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
             return null;

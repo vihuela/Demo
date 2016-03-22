@@ -7,9 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.hadlink.design_patterns.prototype.PrototypeMainAty;
+import com.hadlink.design_patterns.proxy.ProxyMainAty;
 import com.hadlink.design_patterns.status.StateMainAty;
+import com.hadlink.design_patterns.visitor.VisitorMainAty;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 
     public void statusMode(View view) {
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void PrototypeMode(View view) {
         Intent intent = new Intent(this, PrototypeMainAty.class);
+        startActivity(intent);
+    }
+
+    public void VisitorMode(View view) {
+        Intent intent = new Intent(this, VisitorMainAty.class);
+        startActivity(intent);
+    }
+
+    public void ProxyMode(View view) {
+        Intent intent = new Intent(this, ProxyMainAty.class);
         startActivity(intent);
     }
 }

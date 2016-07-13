@@ -1,1 +1,1 @@
-include ':bitcal', ':touch', ':view', ':design_patterns', ':annotation', ':java'
+include ':bitcal', ':touch', ':view', ':design_patterns', ':annotation', ':java', ':db'

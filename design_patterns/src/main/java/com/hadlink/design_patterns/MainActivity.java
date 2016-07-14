@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.hadlink.design_patterns.observer.ObserMainAty;
 import com.hadlink.design_patterns.prototype.PrototypeMainAty;
 import com.hadlink.design_patterns.proxy.ProxyMainAty;
 import com.hadlink.design_patterns.status.StateMainAty;
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void ProxyMode(View view) {
         Intent intent = new Intent(this, ProxyMainAty.class);
+        startActivity(intent);
+    }
+
+    public void observerMode(View view) {
+        Intent intent = new Intent(this, ObserMainAty.class);
         startActivity(intent);
     }
 }

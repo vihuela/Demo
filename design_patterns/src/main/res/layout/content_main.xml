@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,23 +17,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="statusMode"
-        android:text="状态模式"/>
+        android:text="状态模式" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="PrototypeMode"
-        android:text="原型模式"/>
+        android:text="原型模式" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="VisitorMode"
-        android:text="访问者模式"/>
+        android:text="访问者模式" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="ProxyMode"
-        android:text="代理模式"/>
+        android:text="代理模式" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="observerMode"
+        android:text="观察者模式与事件委托" />
 </LinearLayout>

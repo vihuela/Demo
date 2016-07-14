@@ -24,6 +24,7 @@
         <activity android:name=".prototype.PrototypeMainAty"/>
         <activity android:name=".visitor.VisitorMainAty"/>
         <activity android:name=".proxy.ProxyMainAty"/>
+        <activity android:name=".observer.ObserMainAty"/>
     </application>
 
 </manifest>

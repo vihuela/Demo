@@ -1,0 +1,71 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tumblr.backboard.example.BackboardActivity">
+
+    <item
+        android:id="@+id/action_move"
+        android:orderInCategory="100"
+        android:title="@string/action_move"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_snap"
+        android:orderInCategory="100"
+        android:title="@string/action_snap"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_scale"
+        android:orderInCategory="100"
+        android:title="@string/action_scale"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_bloom"
+        android:orderInCategory="100"
+        android:title="@string/action_bloom"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_flower"
+        android:orderInCategory="100"
+        android:title="@string/action_flower"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_appear"
+        android:orderInCategory="100"
+        android:title="@string/action_appear"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_explosion"
+        android:orderInCategory="100"
+        android:title="@string/action_explosion"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_follow"
+        android:orderInCategory="100"
+        android:title="@string/action_follow"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_zoom"
+        android:orderInCategory="100"
+        android:title="@string/action_zoom"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_constrained"
+        android:orderInCategory="100"
+        android:title="@string/action_constrained"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_press"
+        android:orderInCategory="100"
+        android:title="@string/action_press"
+        app:showAsAction="never" />
+</menu>

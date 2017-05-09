@@ -1,8 +1,7 @@
 package worldgo.animator;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -12,9 +11,7 @@ import com.facebook.rebound.SpringSystem;
 import com.tumblr.backboard.Actor;
 import com.tumblr.backboard.MotionProperty;
 import com.tumblr.backboard.imitator.Imitator;
-import com.tumblr.backboard.imitator.InertialImitator;
 import com.tumblr.backboard.imitator.MotionImitator;
-import com.tumblr.backboard.imitator.ToggleImitator;
 import com.tumblr.backboard.performer.Performer;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         final SpringSystem springSystem = SpringSystem.create();
 
         final Spring spring = springSystem.createSpring();
-        // spring.setCurrentValue(currentValue, false);第二个参数为是否将值设置为终点，false为每次都会还原回去，但是第一次未设置为0
+        spring.setCurrentValue(100, false);//第二个参数为是否将值设置为终点，false为每次都会还原回去，但是第一次未设置为0
     }
 
     private void move() {

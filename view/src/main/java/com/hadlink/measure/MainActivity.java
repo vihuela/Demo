@@ -33,9 +33,17 @@ public class MainActivity extends AppCompatActivity {
         go(R.layout.scroller_view);
     }
 
+    public void NestedScrolling(View view) {
+        go(R.layout.nest_view);
+    }
+
     public void go(@LayoutRes int res) {
         Intent intent = new Intent(this, CommonActivity.class);
         intent.putExtra("id", res);
         startActivity(intent);
+    }
+
+    public void LabelView(View view) {
+        go(R.layout.label_view);
     }
 }

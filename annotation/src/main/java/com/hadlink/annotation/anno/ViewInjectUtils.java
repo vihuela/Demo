@@ -1,11 +1,7 @@
-package com.hadlink.annotation;
+package com.hadlink.annotation.anno;
 
 import android.app.Activity;
 import android.view.View;
-
-import com.hadlink.annotation.anno.ContentView;
-import com.hadlink.annotation.anno.EventBase;
-import com.hadlink.annotation.anno.ViewInject;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

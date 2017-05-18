@@ -1,4 +1,4 @@
-package com.hadlink.annotation;
+package com.hadlink.annotation.anno;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;

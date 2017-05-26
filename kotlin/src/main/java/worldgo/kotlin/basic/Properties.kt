@@ -12,5 +12,7 @@ class Properties {
         set(value) {
             b = value
         }
-    val c: String = "i am c"
+    val c: String = "i am c"//默认有getter
+    //lateinit 不初始化
+    lateinit var d: String //默认有getter和setter
 }

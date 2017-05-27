@@ -15,6 +15,10 @@ import com.hadlink.annotation.dagger.scene1.Car;
 import com.hadlink.annotation.dagger.scene2.Parent;
 import com.hadlink.annotation.dagger.scene3.Company;
 import com.hadlink.annotation.dagger.scene4.Country;
+import com.hadlink.annotation.dagger.scene5.ChildModule;
+import com.hadlink.annotation.dagger.scene5.Childs;
+import com.hadlink.annotation.dagger.scene5.IComponentMain;
+import com.hadlink.annotation.dagger.scene5.Main;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
                 Country co = new Country();
                 System.out.println(co.people1);
                 System.out.println(co.people2);
+                //测试递进依赖
+                Main m =new Main();
+                Childs childs = new Childs();//Childs所有属性为空
+                m.iComponentMain.plus(new ChildModule()).inject(childs);
+                //通过联动注入之后有值
+                System.out.println(childs);
             }
             break;
         }

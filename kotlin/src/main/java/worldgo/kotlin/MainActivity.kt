@@ -17,6 +17,7 @@ import worldgo.kotlin.basic.Event
 import worldgo.kotlin.basic.WithTestClass
 import worldgo.kotlin.basic.listener.CustomerView
 import worldgo.kotlin.delegate.Bird_crow
+import worldgo.kotlin.delegate.properties.Preference
 import worldgo.kotlin.expand.swap
 import worldgo.kotlin.generics.Source1
 import worldgo.kotlin.generics.Source2
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val tv: View? = findOptional(R.id.tv)
 //        demo9(tv)
-        tv?.setOnClickListener { demo28() }
+        tv?.setOnClickListener { demo29() }
 
     }
 
@@ -354,5 +355,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //属性委托
+    fun demo29() {
+        var name by Preference("name", "empty")
+        print("name:" + name)
+        name = "ricky"
+        print("name:" + name)
+    }
 
 }

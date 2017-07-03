@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.findOptional
-import org.jetbrains.anko.uiThread
 import worldgo.kotlin.`object`.ObjectClz
 import worldgo.kotlin.`object`.SingleTon
 import worldgo.kotlin.basic.DataClz_Person
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val tv: View? = findOptional(R.id.tv)
 //        demo9(tv)
-        tv?.setOnClickListener { demo29() }
+        tv?.setOnClickListener { demo30() }
 
     }
 
@@ -362,5 +360,14 @@ class MainActivity : AppCompatActivity() {
         name = "ricky"
         print("name:" + name)
     }
+
+    //解构赋值
+    fun demo30() {
+        val map = mapOf(1 to "one", 2 to "two")
+        val message1 = map.map { (key, value) -> "$key $value!" }
+        val message2 = map.mapValues { (key, value) -> "$key $value!" }
+        println()
+    }
+
 
 }

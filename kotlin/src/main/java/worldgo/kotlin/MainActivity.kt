@@ -19,10 +19,12 @@ import worldgo.kotlin.delegate.properties.Preference
 import worldgo.kotlin.expand.swap
 import worldgo.kotlin.generics.Source1
 import worldgo.kotlin.generics.Source2
+import worldgo.kotlin.generics.scenes.*
 import worldgo.kotlin.inherit.Leader
 import worldgo.kotlin.interfaces.Bat
 import worldgo.kotlin.interfaces.Bird
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val tv: View? = findOptional(R.id.tv)
 //        demo9(tv)
-        tv?.setOnClickListener { demo30() }
+        tv?.setOnClickListener { demo19() }
 
     }
 
@@ -254,8 +256,9 @@ class MainActivity : AppCompatActivity() {
     //解构赋值，需要data class
     fun demo19() {
         val dl = DataClz_Person("ricky", 25)
-        val (name, age) = dl.copy("lomoliger")
-        println("name:$name age:$age")
+        val (aa, cc) = dl.copy(name = "lomoliger")
+        val message = "name:$aa age:$cc"
+        println(message)
 
     }
 
@@ -367,6 +370,23 @@ class MainActivity : AppCompatActivity() {
         val message1 = map.map { (key, value) -> "$key $value!" }
         val message2 = map.mapValues { (key, value) -> "$key $value!" }
         println()
+    }
+
+    //泛型测试
+    fun demo31() {
+        /*Developer->Supervisor->CEO*/
+        //in
+        val l1 = Scenes1<Supervisor>()
+        val l5 = Scenes1<Developer>()
+        //out
+        val l3 = Scenes2<Supervisor>()
+        val l4 = Scenes2<Developer>()
+
+        //Developer->Supervisor->CEO
+        val ll:List<out CEO> = ArrayList<Developer>()
+//        ll.add
+
+
     }
 
 

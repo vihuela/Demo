@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author ricky.yao on 2017/7/4.
  */
-
+//http://www.importnew.com/17006.html
 public class GenericTest {
     public static void main(String[] args) {
         //A->B->C

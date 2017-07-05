@@ -24,8 +24,8 @@ public class GenericTest {
         List<? extends B> l3 = new ArrayList<A>();
 
 //        l2.add(new C());ERROR
-        C c1 = l3.get(0);
-        C c2 = l4.get(0);
+        B b = l4.get(1);
+
     }
 
 

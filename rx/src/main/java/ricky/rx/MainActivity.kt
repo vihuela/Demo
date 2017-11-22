@@ -23,7 +23,17 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.tv3).setOnClickListener {
             subject.onNext(false)
         }
+        findViewById(R.id.tv4).setOnClickListener {
 
+            throttleFirst()
+        }
+
+    }
+
+    fun throttleFirst() {
+        Observable.just(1)
+                .throttleFirst(300,TimeUnit.MILLISECONDS)
+                .subscribe{L(it)}
     }
 
     lateinit var subject: BehaviorProcessor<Boolean>

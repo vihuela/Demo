@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public void NestedScrolling(View view) {
         go(R.layout.nest_view);
     }
+    public void ShadowLayer(View view) {
+        go(R.layout.shadow_layer);
+    }
 
     public void go(@LayoutRes int res) {
         Intent intent = new Intent(this, CommonActivity.class);

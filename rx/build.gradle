@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion "$maxSdk_version".toInteger()
+    buildToolsVersion "$buildTools_version".toString()
 
     defaultConfig {
         applicationId "ricky.rx"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion "$minSdk_version".toInteger()
+        targetSdkVersion "$maxSdk_version".toInteger()
         versionCode 1
         versionName "1.0"
 
@@ -33,7 +33,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:$rxJava_version"
     compile "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
     compile "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile "com.android.support:appcompat-v7:$support_version"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

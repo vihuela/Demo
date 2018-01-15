@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,33 +17,41 @@ import java.util.regex.Pattern;
 public class ATestClass {
 
     public static void main(String[] args) {
+        HashMap<Integer, Double> aa = new HashMap<>();
 
-        String line = "<em>A</em>B<em>C</em>DEFG";
+        Integer rand = getRand(aa, 1000);
+        System.out.println(rand);
+    }
 
-        Pattern pattern = Pattern.compile("<.*?>", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(line);
-        List<EMItem> targetPosition = new ArrayList<>();
-        List<String> matchStr = new ArrayList<>();
-        while (matcher.find()) {
-            targetPosition.add(new EMItem(matcher.start(), matcher.end()));
+    public static final Integer getRand(Map<Integer, Double> map, int multiple) {
+        // 放大位数
+
+        // 求和
+        int sum = 0;
+        Iterator<Map.Entry<Integer, Double>> iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer, Double> entry = iter.next();
+            Double v = entry.getValue();
+            sum += v * multiple;
         }
-        for (int i = 0; i < targetPosition.size(); i++) {
-            //脚标有效
-            if (i + 1 < targetPosition.size())
-                //每个item的结束位置到下一个item的起始位置
-                matchStr.add(line.substring(targetPosition.get(i).end, targetPosition.get(i + 1).start));
-        }
-        System.out.println();
-        //整句
-//        StringBuilder totalStr = new StringBuilder();
-//        String[] split = line.split("<.*?>");
-//        for (int i = 0; i < split.length; i++) {
-//            if (split[i].length() != 0) {
-//                totalStr.append(split[i]);
-//            }
-//        }
-//        System.out.println(totalStr.toString());
 
+        if (sum <= 0) {
+            return 0;
+        }
+
+        // 产生0-sum的整数随机
+        int luckNum = new Random().nextInt(sum) + 1;
+        int tmp = 0;
+        iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer, Double> entry = iter.next();
+            Double v = entry.getValue();
+            tmp += v * multiple;
+            if (luckNum <= tmp) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public static class EMItem {

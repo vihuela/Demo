@@ -7,6 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
+import org.jetbrains.anko.UI
 import org.jetbrains.anko.findOptional
 import worldgo.kotlin.`object`.ObjectClz
 import worldgo.kotlin.`object`.SingleTon
@@ -25,17 +31,50 @@ import worldgo.kotlin.interfaces.Bat
 import worldgo.kotlin.interfaces.Bird
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        tv.setOnClickListener { coroutinesTest2() }
 
-        val tv: View? = findOptional(R.id.tv)
-//        demo9(tv)
-        tv?.setOnClickListener { demo19() }
+    }
 
+    //协程
+    fun coroutinesTest2() {
+        runBlocking {
+            async {
+                delay(2000L)
+                println(Thread.currentThread().name)
+                launch(kotlinx.coroutines.experimental.android.UI) {
+                    println(Thread.currentThread().name)
+                }
+            }
+        }
+    }
+
+    //协程
+    fun coroutinesTest1() {
+        runBlocking {
+            work(async { preWork1() }.await(), async { preWork2() }.await())
+        }
+    }
+
+    private suspend fun preWork1(): String {
+        delay(3000L)   //模拟一个耗时任务
+        return "job1:van ♂ yang"
+    }
+
+    private suspend fun preWork2(): String {
+        delay(1000L)   //模拟一个耗时任务
+        return "job2:dark fantastic!"
+    }
+
+    private fun work(str1: String, str2: String) {
+        println("$str1\n$str2")
     }
 
     //基础语法
@@ -383,7 +422,7 @@ class MainActivity : AppCompatActivity() {
         val l4 = Scenes2<Developer>()
 
         //Developer->Supervisor->CEO
-        val ll:List<out CEO> = ArrayList<Developer>()
+        val ll: List<out CEO> = ArrayList<Developer>()
 //        ll.add
 
 
